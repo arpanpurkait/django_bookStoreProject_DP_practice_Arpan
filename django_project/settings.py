@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     # Local apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
+    #third party apps
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 AUTH_USER_MODEL = "accounts.CustomUser"
 LOGIN_REDIRECT_URL = "home"
@@ -125,6 +128,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
