@@ -1,0 +1,19 @@
+{% extends "_base.html" %}
+
+{% block title %}Books{% endblock title %}
+
+{% block content %}
+<h1>📚 All Books</h1>
+
+{% if books_list %}
+    <ul>
+        {% for book in books_list %}
+            <li>
+                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> by {{ book.author }} — ₹{{ book.price }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No books found.</p>
+{% endif %}
+{% endblock content %}
