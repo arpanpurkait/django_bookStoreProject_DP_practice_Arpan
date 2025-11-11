@@ -78,7 +78,7 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -90,7 +90,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "django_project.urls"
-
+DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"
 
 
 TEMPLATES = [
