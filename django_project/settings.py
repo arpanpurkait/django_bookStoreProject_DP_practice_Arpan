@@ -36,6 +36,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
+MEDIA_URL = "/media/" # new
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 
