@@ -7,58 +7,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Bookstore{% endblock %}</title>
 
-    <!-- ✅ Bootstrap CSS (only once, no extra dots or slashes) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- ✅ Your own CSS -->
+    <!-- Your CSS -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    <style>
+        .avatar-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #0d6efd;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'book_list' %}">Bookstore</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'about' %}">About</a>
-                            </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+
+                </ul>
+
+                <!-- RIGHT SIDE NAV (Login / Profile) -->
+                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+
+                    {% if user.is_authenticated %}
+
+                    <!-- PROFILE DROPDOWN -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             
-                            {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
+                            <div class="avatar-circle">
+                                {{ user.username|first|upper }}
+                            </div>
+
+                            <span class="ms-2">{{ user.username }}</span>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li class="dropdown-item-text">
+                                <strong>{{ user.username }}</strong><br>
+                                <small class="text-muted">{{ user.email }}</small>
                             </li>
-                            {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+                                <a class="dropdown-item text-danger" href="{% url 'account_logout' %}">
+                                    Log Out
+                                </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
-                            </li>
-                            {% endif %}
                         </ul>
-                    </div>
+                    </li>
+
+                    {% else %}
+
+                    <!-- GUEST USER -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+                    </li>
+
+                    {% endif %}
+                </ul>
             </div>
+        </div>
     </nav>
 
     <div class="container mt-5 pt-5">
         {% block content %}
-        {% endblock content %}
+        {% endblock %}
     </div>
 
-    <!-- ✅ Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-        </script>
-
-    <!-- ✅ Your JS -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'js/base.js' %}"></script>
 </body>
 

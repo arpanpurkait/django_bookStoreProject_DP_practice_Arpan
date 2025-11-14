@@ -5,11 +5,12 @@
 {% block content %}
 <h1>📚 All Books</h1>
 
-{% if books_list %}
+{% if book_list %}
     <ul>
-        {% for book in books_list %}
+        {% for book in book_list %}
             <li>
-                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> by {{ book.author }} — ₹{{ book.price }}
+                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                by {{ book.author }} — ₹{{ book.price }}
             </li>
         {% endfor %}
     </ul>
