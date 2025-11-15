@@ -20,7 +20,7 @@ env.read_env()
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 
-DEBUG = env.bool("DJANGO_DEBUG")
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -90,7 +90,8 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 MIDDLEWARE = [
-    "django.middleware.cache.UpdateCacheMiddleware"
+    'django.middleware.cache.UpdateCacheMiddleware',
+
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -105,6 +106,10 @@ MIDDLEWARE = [
 CACHE_MIDDLEWARE_ATLAS = "default"
 CACHE_MIDDLEWARE_SECONDS = 604800
 CACHE_MIDDLEWARE_KEY_PREFIX = "" 
+
+
+
+
 
 
 ROOT_URLCONF = "django_project.urls"
@@ -127,6 +132,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "django_project.wsgi.application"
+
+SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+SECURE_HSTS_SECONDS = env.int("DJANGO_SECURE_HSTS_SECONDS", default=2592000)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS",
+default=True)
+
+SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
+
+
+
+SESSION_COOKIE_SECURE = env.bool("DJANGO_SESSION_COOKIE_SECURE", default=True)
+CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=True)
+
+
 
 
 # Database
