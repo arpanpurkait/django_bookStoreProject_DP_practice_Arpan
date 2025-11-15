@@ -34,7 +34,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
+import socket
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
 MEDIA_URL = "/media/" # new
 MEDIA_ROOT = BASE_DIR / "media"
@@ -62,6 +64,8 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
     "books.apps.BooksConfig",
+    "debug_toolbar",
+
 
     #third party apps
     "crispy_forms",
@@ -86,6 +90,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 MIDDLEWARE = [
+    "django.middleware.cache.UpdateCacheMiddleware"
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -93,7 +98,14 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
 ]
+
+CACHE_MIDDLEWARE_ATLAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = "" 
+
 
 ROOT_URLCONF = "django_project.urls"
 DEFAULT_FROM_EMAIL = "admin@djangobookstore.com"

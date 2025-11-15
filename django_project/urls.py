@@ -21,9 +21,19 @@ from django.conf import settings # new
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
+
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("pages.urls")),
     path("accounts/", include("allauth.urls")),
     path("books/", include("books.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+if settings.DEBUG: # new
+    import debug_toolbar
+    urlpatterns = [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ] + urlpatterns
